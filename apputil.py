@@ -1,19 +1,58 @@
-def palindrome(word):
-    """Check whether a word or phrase is a palindrome.
+def parentheses(sequence):
+    """Check whether parentheses in a string are balanced.
 
-    Ignores case, spaces, and punctuation.
+    Non-parenthesis characters are ignored.
 
     Args:
-        word (str): The word or phrase to check.
+        sequence (str): The string to check.
 
     Returns:
-        bool: True if the input is a palindrome, False otherwise.
+        bool: True if parentheses are balanced, False otherwise.
     """
-    cleaned = ""
-    for char in word.lower():
-        if char.isalnum():
-            cleaned += char
+    balance = 0
+    for char in sequence:
+        if char == "(":
+            balance += 1
+        elif char == ")":
+            balance -= 1
 
-    return cleaned == cleaned[::-1]
+        if balance < 0:
+            return False
 
-# add code below ...
+    return balance == 0
+
+if __name__ == "__main__":
+    print(palindrome("racecar"))              # Expected: True
+    print(palindrome("Nurses Run"))            # Expected: True
+    print(palindrome("Sit on a potato pan, Otis."))  # Expected: True
+    print(palindrome("hello"))                 # Expected: False
+
+    def parentheses(sequence):
+        """Check whether parentheses in a string are balanced.
+    
+        Uses a stack: each '(' is pushed, and each ')' must pop
+        a matching '(' off the stack.
+    
+        Args:
+            sequence (str): The string to check.
+    
+        Returns:
+            bool: True if parentheses are balanced, False otherwise.
+        """
+        stack = []
+        for char in sequence:
+            if char == "(":
+                stack.append(char)
+            elif char == ")":
+                if not stack:
+                    return False
+                stack.pop()
+    
+        return len(stack) == 0
+if __name__ == "__main__":
+    assert parentheses("((blah)()()())") is True
+    assert parentheses("(((())blee))") is True
+    assert parentheses("(()hello((())()))") is True
+    assert parentheses("((((((())") is False
+    assert parentheses("()))") is False
+    print("All parentheses tests passed!")
