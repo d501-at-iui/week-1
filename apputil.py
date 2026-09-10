@@ -1,25 +1,20 @@
-def parentheses(sequence):
-    """Check whether parentheses in a string are balanced.
+def palindrome(word):
+    """Check whether a word or phrase is a palindrome.
 
-    Non-parenthesis characters are ignored.
+    Ignores case, spaces, and punctuation.
 
     Args:
-        sequence (str): The string to check.
+        word (str): The word or phrase to check.
 
     Returns:
-        bool: True if parentheses are balanced, False otherwise.
+        bool: True if the input is a palindrome, False otherwise.
     """
-    balance = 0
-    for char in sequence:
-        if char == "(":
-            balance += 1
-        elif char == ")":
-            balance -= 1
+    cleaned = ""
+    for char in word.lower():
+        if char.isalnum():
+            cleaned += char
 
-        if balance < 0:
-            return False
-
-    return balance == 0
+    return cleaned == cleaned[::-1]
 
 if __name__ == "__main__":
     print(palindrome("racecar"))              # Expected: True
